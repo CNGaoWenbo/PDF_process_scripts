@@ -4,7 +4,9 @@ Created on Sat Oct 12 22:59:02 2019
 
 @author: asdqw
 """
-#批量下载
+#批量下载实验室文章，合并所有文章，并在每篇文章后追加首页和空白页
+#Massive download pdf papers from a lab website, and merge them together, along with adding the first page and a blank page to the end of each pdf paper.
+##批量下载Download##
 import urllib.request
 import os
 root_url = 'http://weilab.nju.edu.cn/pub/'
@@ -26,23 +28,22 @@ def getFile(url):
 
 
 os.chdir(os.path.join(os.getcwd(), 'pdf_download'))#在当前目录创建文件夹pdf_download
-
 for i in range(40):
     num = i+42
-    url = root_url+str(num)+'.pdf'#匹配pdf下载url的格式http://weilab.nju.edu.cn/pub/21.pdf
+    url = root_url+str(num)+'.pdf'#匹配pdf下载url的格式,形如http://weilab.nju.edu.cn/pub/21.pdf
     getFile(url)
-#合并处理
+##合并处理Merge##
 import os
 import PyPDF2
 pdfFR = PyPDF2.PdfFileReader
 pdfFM = PyPDF2.PdfFileMerger()
 pdfFW = PyPDF2.PdfFileWriter()
-os.chdir('E:\\资料、文档\\代码\\pdf_download')#切换到pdf文件夹
+os.chdir('E:\\path\\pdf_download')#切换到pdf文件夹
 path = os.getcwd()
 
 
 for i in range(40):
-    num = i+42
+    num = i+42#url是数字命名，且我只需序号42-82
     file_name = str(num)+'.pdf'
     file = PyPDF2.PdfFileReader(file_name)
     num_pages = pdfFR.getNumPages(file)
